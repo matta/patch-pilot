@@ -10,13 +10,15 @@ const LABELS = {
 
 const STALE_LOCK_MINUTES = 15;
 
+/**
+ * The main Probot application entry point.
+ * Manages PR merge queues, stuck locks, and conflicts.
+ */
 export default (app: Probot, options: ApplicationFunctionOptions) => {
   const { addHandler } = options;
   app.log.info("Merge Helper Bot loaded");
 
-  // ----------------------------------------------------------------------
   // 1. EVENT LISTENERS (The "Push")
-  // ----------------------------------------------------------------------
   
   // Trigger when you signal intent or when the PR state changes
   app.on(
@@ -34,9 +36,7 @@ export default (app: Probot, options: ApplicationFunctionOptions) => {
     }
   );
 
-  // ----------------------------------------------------------------------
   // 2. THE SWEEPER (The "Pull" / Reconciliation)
-  // ----------------------------------------------------------------------
   
   if (addHandler) {
     addHandler(async (req, res) => {
