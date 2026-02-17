@@ -51,10 +51,10 @@ export default (app: Probot, options: ApplicationFunctionOptions) => {
             app.log.info(`Processing installation ${installation.id}`);
             try {
               const installationOctokit = await app.auth(installation.id);
-              const repos: any[] = await installationOctokit.paginate(
+              const repos = await installationOctokit.paginate(
                 "GET /installation/repositories",
                 { per_page: 100 },
-                (response: any) => response.data.repositories
+                (response) => response.data.repositories
               );
               app.log.info(`Found ${repos.length} repositories for installation ${installation.id}`);
 
@@ -201,7 +201,7 @@ export default (app: Probot, options: ApplicationFunctionOptions) => {
 
     // Case 4: Ready to Merge
     // (We rely on 'clean' or 'has_hooks' - GitHub is weird about exact states sometimes)
-    if (["clean", "has_hooks", "unstable"].includes(pr.mergeable_state as string)) {
+    if (pr.mergeable_state && ["clean", "has_hooks", "unstable"].includes(pr.mergeable_state)) {
        logger.info(`Merging PR #${prNumber}`);
        try {
          await octokit.rest.pulls.merge({
