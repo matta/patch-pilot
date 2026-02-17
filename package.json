@@ -20,11 +20,11 @@
     "probot": "^13.4.5"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "nock": "^14.0.5",
-    "smee-client": "^5.0.0",
-    "vitest": "^2.0.0",
-    "typescript": "^5.8.3"
+    "@types/node": "20.19.33",
+    "nock": "14.0.11",
+    "smee-client": "5.0.0",
+    "vitest": "2.1.9",
+    "typescript": "5.9.3"
   },
   "overrides": {
     "@types/pg": "8.15.1"
